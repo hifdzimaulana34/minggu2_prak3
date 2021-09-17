@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PSController;
+use App\Http\Controllers\SaranaController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,33 +22,20 @@ use App\Http\Controllers\NewsController;
 Route:: get('/',[HomeController::class,'indexLaravel']);
 
 Route:: prefix('prodi')->group(function(){
-    Route::get('/mi',function(){
-        return "Halaman Prodi Manajemen Informatika";
-    });
-    Route::get('/ti',function(){
-        return "Halaman Prodi Teknik Informatika";
-    });
+    Route::get('/manajemen-informatika', [PSController::class, 'mi']);
+    Route::get('/teknik-informatika', [PSController::class, 'ti']);
 });
 
 Route:: get('/news/{id}',[NewsController::class,'News']);
 
 Route:: prefix('sarana')->group(function(){
-    Route::get('/perkantoran',function(){
-        return "Halaman sarana Perkantoran";
-    });
-    Route::get('/laboratorium',function(){
-        return "Halaman sarana laboratorium";
-    });
-    Route::get('/kelas',function(){
-        return "Halaman sarana kelas";
-    });
-    Route::get('/lainnya',function(){
-        return "Halaman sarana lainnya";
-    });
+    Route::get('/perkantoran', [SaranaController::class, 'perkantoran']);
+    Route::get('/laboratorium', [SaranaController::class, 'laboratorium']);
+    Route::get('/kelas', [SaranaController::class, 'kelas']);
+    Route::get('/lainnya', [SaranaController::class, 'lainnya']);
+
 });
 
 Route:: get('/about',[AboutController::class,'AboutUser']);
 
-Route::get('/comment/{nama}/comment/{id?}',function($nama, $id){
-    return "User ".$nama. " Mengisi komentar ke-".$id;
-});
+Route:: get('comment/{nama}/{id}',[CommentController::class,'comment']);

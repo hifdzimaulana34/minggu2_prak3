@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class AboutController extends Controller
 {
     public function AboutUser(){
-        return '[2031710142] Mohammad Hifdzi Maulana';
+        return view('about');
     }
 }
